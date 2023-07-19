@@ -51,8 +51,11 @@ module Make (Protocol : Protocol) = struct
           Protocol.parser_
           (fun message ->
              f `Sent message;
-             Writer.write writer (Protocol.to_string message);
-             Writer.flushed writer)
+             match Writer.is_closed writer || Fd.is_closed (Writer.fd writer) with
+             | true -> return ()
+             | false ->
+               Writer.write writer (Protocol.to_string message);
+               Writer.flushed writer)
           reader
       in
       let%bind () = Reader.close reader in
