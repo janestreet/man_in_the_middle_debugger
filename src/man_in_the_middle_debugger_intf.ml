@@ -33,10 +33,10 @@ module type S = sig
     -> my_name:string
     -> f:([ `Sent | `Received ] -> message -> unit)
     -> (Reader.t
-        * Writer.t
-        * [ `Stopped_reading of angstrom_exit_status Deferred.t ]
-        * [ `Stopped_writing of angstrom_exit_status Deferred.t ])
-         Deferred.t
+       * Writer.t
+       * [ `Stopped_reading of angstrom_exit_status Deferred.t ]
+       * [ `Stopped_writing of angstrom_exit_status Deferred.t ])
+       Deferred.t
 
   (** Connect two peers together and listen to the messages that pass between them. Both
       readers and writers will be closed when either side closes the connection. *)
@@ -45,7 +45,7 @@ module type S = sig
     -> peer2:Peer.t
     -> f:([ `Peer_1_to_2 | `Peer_2_to_1 ] -> message -> unit)
     -> ([ `Peer1 of angstrom_exit_status ] * [ `Peer2 of angstrom_exit_status ])
-         Deferred.t
+       Deferred.t
 end
 
 module type Man_in_the_middle_debugger = sig

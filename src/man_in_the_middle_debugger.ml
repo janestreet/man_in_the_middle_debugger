@@ -14,9 +14,9 @@ module Make (Protocol : Protocol) = struct
         Angstrom_async.parse_many
           Protocol.parser_
           (fun message ->
-             f `Received message;
-             Pipe.write_without_pushback pipe_w (Protocol.to_string message);
-             return ())
+            f `Received message;
+            Pipe.write_without_pushback pipe_w (Protocol.to_string message);
+            return ())
           reader
       in
       let%bind () = Reader.close reader in
@@ -50,12 +50,12 @@ module Make (Protocol : Protocol) = struct
         Angstrom_async.parse_many
           Protocol.parser_
           (fun message ->
-             f `Sent message;
-             match Writer.is_closed writer || Fd.is_closed (Writer.fd writer) with
-             | true -> return ()
-             | false ->
-               Writer.write writer (Protocol.to_string message);
-               Writer.flushed writer)
+            f `Sent message;
+            match Writer.is_closed writer || Fd.is_closed (Writer.fd writer) with
+            | true -> return ()
+            | false ->
+              Writer.write writer (Protocol.to_string message);
+              Writer.flushed writer)
           reader
       in
       let%bind () = Reader.close reader in
