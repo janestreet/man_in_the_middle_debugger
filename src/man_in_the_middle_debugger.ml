@@ -102,8 +102,7 @@ module Make (Protocol : Protocol) = struct
       ]
       |> Deferred.all_unit
     in
-    let%map stopped_reading_from_peer2 = stopped_reading_from_peer2
-    and stopped_writing_to_peer2 = stopped_writing_to_peer2 in
+    let%map stopped_reading_from_peer2 and stopped_writing_to_peer2 in
     `Peer1 stopped_writing_to_peer2, `Peer2 stopped_reading_from_peer2
   ;;
 end
